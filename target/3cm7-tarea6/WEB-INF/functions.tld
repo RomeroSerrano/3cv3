@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<taglib version="2.0" xmlns="http://java.sun.com/xml/ns/j2ee" 
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+  xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee web-jsptaglibrary_2_0.xsd">
+    <display-name>Custom EL Functions</display-name>    
+    <tlib-version>1.0</tlib-version>
+    <short-name>fn</short-name>
+    <uri>/WEB-INF/functions</uri>
+    <function>
+        <name>getErrors</name>
+        <function-class>mx.ipn.escom.wad.tag.Functions</function-class>
+        <function-signature>
+            java.util.List getErrors(mx.ipn.escom.wad.tarea6.util.FieldErrors, java.lang.String)
+        </function-signature>
+    </function> 
+</taglib>
