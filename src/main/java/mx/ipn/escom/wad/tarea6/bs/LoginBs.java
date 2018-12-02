@@ -43,11 +43,6 @@ public class LoginBs extends GenericBs {
 		} else {
 			throw new UserNotFoundException();
 		}
-		Usuario test_usuario = findById(Usuario.class, 1);
-		List<Cuenta> cuentas = test_usuario.getCuentas();
-		for (Cuenta cuenta: cuentas) {
-			System.out.println(cuenta.getUsuario());
-		}
 		return usuario;
 	}
 
