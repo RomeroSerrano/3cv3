@@ -5,6 +5,9 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
@@ -12,17 +15,23 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.PrimaryKeyJoinColumn;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "persona")
 @Inheritance(strategy = InheritanceType.JOINED)
 @PrimaryKeyJoinColumn(name = "id_persona", referencedColumnName = "id_usuario")
-public class Persona extends Usuario implements Modelo{
+public class Persona implements Modelo{
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	@Id
+	@SequenceGenerator(name = "persona_id_persona_seq", sequenceName = "persona_id_persona_seq", allocationSize = 1)
+	@GeneratedValue(generator = "persona_id_persona_seq", strategy = GenerationType.SEQUENCE)
+	@Column(name = "id_persona")
+	private Integer id;
 	@Column(name = "nb_usuario")
 	private String nombre;
 	@Column(name = "tx_primer_ap")
@@ -104,5 +113,15 @@ public class Persona extends Usuario implements Modelo{
 	
 	public String toString() {
 		return nombre+" "+primerApellido+" "+segundoApellido;
+	}
+
+	@Override
+	public Integer getId() {
+		return this.id;
+	}
+
+	@Override
+	public void setId(Integer id) {
+
 	}
 }

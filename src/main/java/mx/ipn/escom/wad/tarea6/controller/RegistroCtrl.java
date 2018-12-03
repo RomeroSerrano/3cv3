@@ -18,7 +18,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 
 import mx.ipn.escom.wad.tarea6.bs.PersonaBs;
+import mx.ipn.escom.wad.tarea6.bs.UsuarioBs;
 import mx.ipn.escom.wad.tarea6.entidad.Persona;
+import mx.ipn.escom.wad.tarea6.entidad.Usuario;
 import mx.ipn.escom.wad.tarea6.exception.NombreObjetosSession;
 import mx.ipn.escom.wad.tarea6.util.FieldErrors;
 import mx.ipn.escom.wad.tarea6.util.Message;
@@ -34,6 +36,8 @@ public class RegistroCtrl extends HttpServlet {
 
 	@Autowired
 	private PersonaBs personaBs;
+	@Autowired
+	private UsuarioBs usuarioBs;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -68,6 +72,16 @@ public class RegistroCtrl extends HttpServlet {
 		Persona p = obtenerPersona(fieldErrors, request);
 		if (!fieldErrors.hasErrors()) {
 			personaBs.guardar(p);
+
+			System.out.println("PERSONA ID " + p.getId());
+
+			Usuario u = obtenerUsuario(fieldErrors, request);
+			System.out.println("PERSONA ID " + p.getId());
+			u.setPersona(p);
+			u.setIdPersona(p.getId());
+
+			usuarioBs.guardar(u);
+
 			Message message = new Message(MessageType.MESSAGE_SUCCESS, PropertyAccess.getProperty("MSG4"));
 			HttpSession session = request.getSession();
 			session.setAttribute(NombreObjetosSession.GLOBAL_MESSAGE, message);
@@ -87,9 +101,6 @@ public class RegistroCtrl extends HttpServlet {
 			String segundoApellido = request.getParameter("persona.segundoApellido");
 			String curp = request.getParameter("persona.curp");
 			String nacimiento = request.getParameter("persona.nacimiento");
-			String login = request.getParameter("persona.login");
-			String password = request.getParameter("persona.password");
-			String passwordConfirm = request.getParameter("persona.passwordConfirm");
 			if (nombre != null && !nombre.equals("")) {
 				persona.setNombre(nombre);
 			} else {
@@ -104,13 +115,30 @@ public class RegistroCtrl extends HttpServlet {
 			Date fecha;
 			fecha = format.parse(nacimiento);
 			persona.setNacimiento(fecha);
-			persona.setLogin(login);
-			persona.setPassword(password);
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return persona;
+	}
+
+	private Usuario obtenerUsuario(FieldErrors fieldErrors, HttpServletRequest request) {
+		Usuario usuario = new Usuario();
+
+		try {
+			
+			String login = request.getParameter("persona.login");
+			String password = request.getParameter("persona.password");
+			String passwordConfirm = request.getParameter("persona.passwordConfirm");
+
+			usuario.setLogin(login);
+			usuario.setPassword(password);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return usuario;
 	}
 
 }

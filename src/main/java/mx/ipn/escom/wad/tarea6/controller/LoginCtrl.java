@@ -76,9 +76,10 @@ public class LoginCtrl extends HttpServlet {
 			if (!fieldErrors.hasErrors()) {
 				usuario = loginBs.login(username, password);
 				session.setAttribute(NombreObjetosSession.USER, usuario);
-				RequestDispatcher rd = request.getRequestDispatcher("welcome.jsp");
-				System.out.println("--> " + usuario.getLogin());
-				rd.forward(request, response);
+				response.sendRedirect("ContactoCtrl");
+				// RequestDispatcher rd = request.getRequestDispatcher("ContactoCtrl");
+				// System.out.println("--> " + usuario.getLogin());
+				// rd.forward(request, response);
 			} else {
 				System.out.println("--> Falta login");
 				Message message = new Message(MessageType.MESSAGE_DANGER, PropertyAccess.getProperty("MSG1"));

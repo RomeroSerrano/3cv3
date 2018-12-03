@@ -1,8 +1,5 @@
 package mx.ipn.escom.wad.tarea6.bs;
 
-import java.util.Date;
-import java.util.List;
-
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +9,6 @@ import org.springframework.stereotype.Service;
 
 import mx.ipn.escom.wad.tarea6.dao.LoginDao;
 import mx.ipn.escom.wad.tarea6.entidad.Acceso;
-import mx.ipn.escom.wad.tarea6.entidad.Cuenta;
 import mx.ipn.escom.wad.tarea6.entidad.Persona;
 import mx.ipn.escom.wad.tarea6.entidad.Usuario;
 import mx.ipn.escom.wad.tarea6.exception.UserBlockedException;

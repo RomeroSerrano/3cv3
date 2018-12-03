@@ -3,6 +3,7 @@ package mx.ipn.escom.wad.tarea6.entidad;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -29,6 +30,8 @@ public class Usuario implements Modelo, Serializable{
 	@GeneratedValue(generator = "usuario_id_usuario_seq", strategy = GenerationType.SEQUENCE)
 	@Column(name = "id_usuario")
 	private Integer id;
+	@Column(name = "id_persona")
+	private Integer idPersona;
 	@Column(name = "tx_login")
 	private String login;
 	@Column(name = "tx_password")
@@ -38,6 +41,9 @@ public class Usuario implements Modelo, Serializable{
 	@OneToOne
 	@JoinColumn(name = "id_usuario", referencedColumnName = "id_acceso", insertable = false, updatable = false)
 	private Acceso acceso;
+	@OneToOne(cascade = {CascadeType.ALL})
+	@JoinColumn(name = "id_persona", referencedColumnName = "id_persona", insertable = false, updatable = false)
+	private Persona persona;
 
 	public Usuario() {
 
@@ -49,6 +55,14 @@ public class Usuario implements Modelo, Serializable{
 
 	public void setId(Integer id) {
 		this.id = id;
+	}
+
+	public Integer getIdPersona() {
+		return idPersona;
+	}
+
+	public void setIdPersona(Integer idPersona) {
+		this.idPersona = idPersona;
 	}
 
 	public String getLogin() {
@@ -81,6 +95,14 @@ public class Usuario implements Modelo, Serializable{
 
 	public void setAcceso(Acceso acceso) {
 		this.acceso = acceso;
+	}
+
+	public Persona getPersona() {
+		return persona;
+	}
+
+	public void setPersona(Persona persona) {
+		this.persona = persona;
 	}
 
 	@Override
