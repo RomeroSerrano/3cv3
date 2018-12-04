@@ -69,6 +69,9 @@ public class ContactoCtrl extends HttpServlet {
 		this.usuario = usuarioBs.buscarByUserName(username.toString());
 		this.persona = usuario.getPersona();
 		System.out.println("CONTACTOSS " + this.persona.getContactos());
+		for (PersonaContacto personaContacto : this.persona.getContactos()) {
+			System.out.println(personaContacto.getPersona());
+		}
 
 		RequestDispatcher rd = request.getRequestDispatcher("contacto/contacto.jsp");
 		rd.forward(request, response);

@@ -5,6 +5,8 @@ import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -21,6 +23,9 @@ public class PersonaContacto implements Modelo {
 	@ManyToOne
 	@JoinColumn(name = "id_tipo", referencedColumnName = "id_tipo", insertable = false, updatable = false)
 	private TipoContacto tipo;
+	@OneToOne
+	@JoinColumn(name = "id_persona_contacto", referencedColumnName = "id_persona", insertable = false, updatable = false)
+	private Persona persona;
 
 	public Integer getIdPersona() {
 		return idPersona;
@@ -62,5 +67,9 @@ public class PersonaContacto implements Modelo {
 
 	public PersonaContactoId getPersonaContactoId() {
 		return id;
+	}
+
+	public Persona getPersona() {
+		return persona;
 	}
 }
