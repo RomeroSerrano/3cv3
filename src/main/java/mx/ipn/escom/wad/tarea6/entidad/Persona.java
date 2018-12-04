@@ -8,8 +8,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
@@ -20,8 +18,6 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "persona")
-@Inheritance(strategy = InheritanceType.JOINED)
-@PrimaryKeyJoinColumn(name = "id_persona", referencedColumnName = "id_usuario")
 public class Persona implements Modelo{
 	/**
 	 * 
@@ -50,6 +46,9 @@ public class Persona implements Modelo{
 			@JoinColumn(name = "id_persona", referencedColumnName = "id_persona", insertable = false, updatable = false) }, inverseJoinColumns = {
 					@JoinColumn(name = "id_tipo", referencedColumnName = "id_tipo", insertable = false, updatable = false) })
 	private List<TipoContacto> tiposContacto;
+	@OneToMany
+	@JoinColumn(name = "id_persona", referencedColumnName = "id_persona", insertable = false, updatable = false)
+	private List<Contacto> contacto;
 
 	public Persona() {
 		super();
@@ -122,6 +121,6 @@ public class Persona implements Modelo{
 
 	@Override
 	public void setId(Integer id) {
-
+		this.id = id;
 	}
 }

@@ -60,4 +60,7 @@ public class PersonaContacto implements Modelo {
 		this.id = personaContactoId;
 	}
 
+	public PersonaContactoId getPersonaContactoId() {
+		return id;
+	}
 }

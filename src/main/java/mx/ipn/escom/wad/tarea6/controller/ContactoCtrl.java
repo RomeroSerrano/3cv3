@@ -1,7 +1,9 @@
 package mx.ipn.escom.wad.tarea6.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
@@ -19,9 +21,11 @@ import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 
 import mx.ipn.escom.wad.tarea6.bs.PersonaBs;
 import mx.ipn.escom.wad.tarea6.bs.PersonaContactoBs;
+import mx.ipn.escom.wad.tarea6.bs.UsuarioBs;
 import mx.ipn.escom.wad.tarea6.entidad.Persona;
 import mx.ipn.escom.wad.tarea6.entidad.PersonaContacto;
 import mx.ipn.escom.wad.tarea6.entidad.PersonaContactoId;
+import mx.ipn.escom.wad.tarea6.entidad.Usuario;
 import mx.ipn.escom.wad.tarea6.exception.NombreObjetosSession;
 import mx.ipn.escom.wad.tarea6.util.FieldErrors;
 import mx.ipn.escom.wad.tarea6.util.Message;
@@ -35,11 +39,15 @@ import mx.ipn.escom.wad.tarea6.util.PropertyAccess;
 public class ContactoCtrl extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
+	private Usuario usuario;
+	private Persona persona;
+
 	@Autowired
 	private PersonaBs personaBs;
 	@Autowired
 	private PersonaContactoBs personaContactoBs;
-       
+    @Autowired
+	private UsuarioBs usuarioBs;
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -57,6 +65,10 @@ public class ContactoCtrl extends HttpServlet {
 		Object username = session.getAttribute(NombreObjetosSession.USER);
 		if(username == null)
 			response.sendRedirect("LoginCtrl");
+
+		this.usuario = usuarioBs.buscarByUserName(username.toString());
+		this.persona = usuario.getPersona();
+		System.out.println("CONTACTOSS " + this.persona.getContactos());
 
 		RequestDispatcher rd = request.getRequestDispatcher("contacto/contacto.jsp");
 		rd.forward(request, response);
@@ -85,14 +97,16 @@ public class ContactoCtrl extends HttpServlet {
 			personaContacto.setIdPersona(persona.getId());
 
 			PersonaContactoId personaContactoId = new PersonaContactoId();
-			personaContactoId.setIdPersona(persona.getId());
+			personaContactoId.setIdPersona(this.persona.getId());
 			personaContactoId.setIdTipoContacto(personaContacto.getIdTipoContacto());
-
 			personaContacto.setPersonaContactoId(personaContactoId);
 			personaContactoBs.guardar(personaContacto);
 
-			Message message = new Message(MessageType.MESSAGE_SUCCESS, PropertyAccess.getProperty("MSG4"));
+			List<PersonaContacto> contactos = new ArrayList<>();
+			contactos.add(personaContacto);
+
 			HttpSession session = request.getSession();
+			Message message = new Message(MessageType.MESSAGE_SUCCESS, PropertyAccess.getProperty("MSG4"));
 			session.setAttribute(NombreObjetosSession.GLOBAL_MESSAGE, message);
 			// response.sendRedirect(request.getContextPath() + "/ContactoCtrl");
 		} else {
