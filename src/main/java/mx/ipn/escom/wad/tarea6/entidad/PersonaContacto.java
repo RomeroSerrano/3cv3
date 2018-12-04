@@ -9,7 +9,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "persona_contacto")
-public class PersonaContacto {
+public class PersonaContacto implements Modelo {
 	@EmbeddedId
 	private PersonaContactoId id;
 	@Column(name = "id_persona", insertable = false, updatable = false)
@@ -45,4 +45,19 @@ public class PersonaContacto {
 	public void setContacto(String contacto) {
 		this.contacto = contacto;
 	}
+
+	@Override
+	public Integer getId() {
+		return null;
+	}
+
+	@Override
+	public void setId(Integer id) {
+
+	}
+
+	public void setPersonaContactoId(PersonaContactoId personaContactoId) {
+		this.id = personaContactoId;
+	}
+
 }
