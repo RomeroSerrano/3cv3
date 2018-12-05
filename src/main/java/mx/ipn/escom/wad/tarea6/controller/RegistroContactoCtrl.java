@@ -116,7 +116,7 @@ public class RegistroContactoCtrl extends HttpServlet {
 			session.setAttribute(NombreObjetosSession.GLOBAL_MESSAGE, message);
 			// response.sendRedirect(request.getContextPath() + "/ContactoCtrl");
 		} else {
-			RequestDispatcher rd = request.getRequestDispatcher("registro/nuevo-registro.jsp");
+			RequestDispatcher rd = request.getRequestDispatcher("registro/registro-contacto.jsp");
 			request.setAttribute("fieldErrors", fieldErrors);
 			rd.forward(request, response);
 		}
