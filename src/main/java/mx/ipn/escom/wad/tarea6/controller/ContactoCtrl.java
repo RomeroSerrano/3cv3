@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 
 import mx.ipn.escom.wad.tarea6.bs.ContactoBs;
@@ -75,9 +76,7 @@ public class ContactoCtrl extends HttpServlet {
 		this.persona = usuario.getPersona();
 
 		List<Contacto> contactos = this.persona.getContacto();
-		for (Contacto contacto : contactos) {
-			request.setAttribute("contacto", contacto.getPersonaContacto());
-		}
+		request.setAttribute("contactos", contactos);
 
 		RequestDispatcher rd = request.getRequestDispatcher("contacto/contacto.jsp");
 		rd.forward(request, response);

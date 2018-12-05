@@ -24,7 +24,7 @@ public class PersonaContacto implements Modelo {
 	@JoinColumn(name = "id_tipo", referencedColumnName = "id_tipo", insertable = false, updatable = false)
 	private TipoContacto tipo;
 	@OneToOne
-	@JoinColumn(name = "id_persona_contacto", referencedColumnName = "id_persona", insertable = false, updatable = false)
+	@JoinColumn(name = "id_persona", referencedColumnName = "id_persona", insertable = false, updatable = false)
 	private Persona persona;
 
 	public Integer getIdPersona() {
@@ -71,5 +71,9 @@ public class PersonaContacto implements Modelo {
 
 	public Persona getPersona() {
 		return persona;
+	}
+
+	public TipoContacto getTipo() {
+		return this.tipo;
 	}
 }

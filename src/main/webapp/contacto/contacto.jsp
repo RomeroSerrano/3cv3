@@ -12,6 +12,8 @@
 <head>
 </head>
 <body>
+	Contacto
+	<span><c:out value="${contacto.contactos}"></c:out></span>
     <c:set var="usuario" value="${sessionScope.authenticated_user}" />
 	<h1>Bienvenido</h1>
 	<h3><c:out value="${usuario}"/></h3>
@@ -138,9 +140,25 @@
 						<th>Primero apellido</th>
 						<th>Segundo apellido</th>
 						<th>CURP</th>
-						<th>Telefono</th>
-						<th>Email</th>
+						<th>Contactos</th>
 					</thead>
+					<tbody>
+						<c:forEach var="contacto" items="${contactos}">
+							<tr>
+								<td><c:out value="${contacto.personaContacto.nombre}"></c:out></td>
+								<td><c:out value="${contacto.personaContacto.primerApellido}"></c:out></td>
+								<td><c:out value="${contacto.personaContacto.segundoApellido}"></c:out></td>
+								<td><c:out value="${contacto.personaContacto.curp}"></c:out></td>
+								<td>
+									<ul>
+										<c:forEach var="pContacto" items="${contacto.personaContacto.contactos}">
+											<li><c:out value="${pContacto.contacto}"></c:out> (<c:out value="${pContacto.tipo.nombre}"></c:out>)</li>
+										</c:forEach>
+									</ul>
+								</td>
+							</tr>
+						</c:forEach>
+					</tbody>
 				</table>
 			</div>
 		</div>
