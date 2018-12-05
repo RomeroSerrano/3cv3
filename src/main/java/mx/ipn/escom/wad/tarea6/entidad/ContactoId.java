@@ -6,20 +6,15 @@ import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
 @Embeddable
-public class PersonaContactoId implements Serializable {
+public class ContactoId implements Serializable {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	@Column(name = "id_persona", nullable = false)
 	private Integer idPersona;
-	@Column(name = "id_tipo", nullable = false)
-	private Integer idTipoContacto;
-
-	public PersonaContactoId(Integer idPersona, Integer idTipoContacto) {
-		this.idPersona = idPersona;
-		this.idTipoContacto = idTipoContacto;
-	}
+	@Column(name = "id_contacto", nullable = false)
+	private Integer idContacto;
 
 	public Integer getIdPersona() {
 		return idPersona;
@@ -30,11 +25,11 @@ public class PersonaContactoId implements Serializable {
 	}
 
 	public Integer getIdTipoContacto() {
-		return idTipoContacto;
+		return idContacto;
 	}
 
-	public void setIdTipoContacto(Integer idTipoContacto) {
-		this.idTipoContacto = idTipoContacto;
+	public void setIdTipoContacto(Integer idContacto) {
+		this.idContacto = idContacto;
 	}
 
 }

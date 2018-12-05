@@ -91,22 +91,17 @@ public class ContactoCtrl extends HttpServlet {
 		FieldErrors fieldErrors = new FieldErrors();
 
 		Persona persona  = obtenerPersona(fieldErrors, request);
+		PersonaContacto personaContacto = obtenerPersonaContacto(fieldErrors, request);
 		System.out.println("CONTACTO CTRL " + persona.getCurp());
 
 		if (!fieldErrors.hasErrors()) {	
 			personaBs.guardar(persona);
 
-			PersonaContacto personaContacto = obtenerPersonaContacto(fieldErrors, request);
 			personaContacto.setIdPersona(persona.getId());
 
-			PersonaContactoId personaContactoId = new PersonaContactoId();
-			personaContactoId.setIdPersona(this.persona.getId());
-			personaContactoId.setIdTipoContacto(personaContacto.getIdTipoContacto());
+			PersonaContactoId personaContactoId = new PersonaContactoId(this.persona.getId(), personaContacto.getIdTipoContacto());
 			personaContacto.setPersonaContactoId(personaContactoId);
 			personaContactoBs.guardar(personaContacto);
-
-			List<PersonaContacto> contactos = new ArrayList<>();
-			contactos.add(personaContacto);
 
 			HttpSession session = request.getSession();
 			Message message = new Message(MessageType.MESSAGE_SUCCESS, PropertyAccess.getProperty("MSG4"));
