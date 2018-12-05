@@ -12,10 +12,8 @@
 	<html xmlns="http://www.w3.org/1999/xhtml">
 <head></head>
 <body>
-	<span><c:out value="${contacto.contactos}"></c:out></span>
     <c:set var="usuario" value="${sessionScope.authenticated_user}" />
 	<h1>Bienvenido</h1>
-	<h3><c:out value="${pageContext.request.contextPath}"/></h3>
 	<div class="row">
 		<div class="col-md-4">
 			<form action="${pageContext.request.contextPath}/RegistroContactoCtrl" method="post">
@@ -87,6 +85,20 @@
 				<h5>Informacion contacto</h5>
 				<div id="info-contacto">
 					<div>
+						<div>Contacto</div>
+						<div>
+							<input type="text" name="contacto.contacto" />
+							<ul>
+								<c:if test="${fieldErrors ne null}">
+									<c:forEach items="${fn:getErrors(fieldErrors,'contacto.contacto')}"
+										var="error">
+										<li><c:out value="${error}" /></li>
+									</c:forEach>
+								</c:if>
+							</ul>
+						</div>
+					</div>
+					<div>
 						<div>Tipo de contacto</div>
 						<div>
 							<select name="contacto.tipoContacto" id="">
@@ -99,20 +111,6 @@
 							<ul>
 								<c:if test="${fieldErrors ne null}">
 									<c:forEach items="${fn:getErrors(fieldErrors,'contacto.tipoContacto')}"
-										var="error">
-										<li><c:out value="${error}" /></li>
-									</c:forEach>
-								</c:if>
-							</ul>
-						</div>
-					</div>
-					<div>
-						<div>Contacto</div>
-						<div>
-							<input type="text" name="contacto.contacto" />
-							<ul>
-								<c:if test="${fieldErrors ne null}">
-									<c:forEach items="${fn:getErrors(fieldErrors,'contacto.contacto')}"
 										var="error">
 										<li><c:out value="${error}" /></li>
 									</c:forEach>

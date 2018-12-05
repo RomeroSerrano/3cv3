@@ -18,10 +18,14 @@ function createNewInput() {
         option.text = selectOptions[i];
         new_select.appendChild(option);
     }
-
-    new_div.appendChild(new_input);
-    new_div.appendChild(break_line);
-    new_div.appendChild(new_select);
+    
+    var new_element_div = document.createElement("div");
+    new_element_div.appendChild(new_input);
+    new_div.appendChild(new_element_div);
+    
+    new_element_div = document.createElement("div");
+    new_element_div.appendChild(new_select);
+    new_div.appendChild(new_element_div);
     
     container.appendChild(new_div);
     container.appendChild(break_line);

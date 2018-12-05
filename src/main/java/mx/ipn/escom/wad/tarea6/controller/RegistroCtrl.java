@@ -70,13 +70,10 @@ public class RegistroCtrl extends HttpServlet {
 			throws ServletException, IOException {
 		FieldErrors fieldErrors = new FieldErrors();
 		Persona p = obtenerPersona(fieldErrors, request);
+		Usuario u = obtenerUsuario(fieldErrors, request);
+
 		if (!fieldErrors.hasErrors()) {
 			personaBs.guardar(p);
-
-			System.out.println("PERSONA ID " + p.getId());
-
-			Usuario u = obtenerUsuario(fieldErrors, request);
-			System.out.println("PERSONA ID " + p.getId());
 			u.setPersona(p);
 			u.setIdPersona(p.getId());
 

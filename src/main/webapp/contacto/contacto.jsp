@@ -12,18 +12,9 @@
 <head>
 </head>
 <body>
-	Contacto
-	<span><c:out value="${contacto.contactos}"></c:out></span>
-    <c:set var="usuario" value="${sessionScope.authenticated_user}" />
+    <c:set var="usuario" value="${usuario}" />
 	<h1>Bienvenido</h1>
 	<h3><c:out value="${usuario}"/></h3>
-	<div class="row">
-			<div class="col-md-4">
-				<div class="form-group">
-					<span>Contactos</span>
-				</div>
-			</div>
-	</div>
 	<div class="row">
 		<div class="col-md-12">
 			<a href="${pageContext.request.contextPath}/RegistroContactoCtrl" class="btn btn-primary">Agregar contacto</a>

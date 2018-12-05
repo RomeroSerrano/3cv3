@@ -1,11 +1,7 @@
 package mx.ipn.escom.wad.tarea6.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
@@ -17,7 +13,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 
 import mx.ipn.escom.wad.tarea6.bs.ContactoBs;
@@ -25,16 +20,9 @@ import mx.ipn.escom.wad.tarea6.bs.PersonaBs;
 import mx.ipn.escom.wad.tarea6.bs.PersonaContactoBs;
 import mx.ipn.escom.wad.tarea6.bs.UsuarioBs;
 import mx.ipn.escom.wad.tarea6.entidad.Contacto;
-import mx.ipn.escom.wad.tarea6.entidad.ContactoId;
 import mx.ipn.escom.wad.tarea6.entidad.Persona;
-import mx.ipn.escom.wad.tarea6.entidad.PersonaContacto;
-import mx.ipn.escom.wad.tarea6.entidad.PersonaContactoId;
 import mx.ipn.escom.wad.tarea6.entidad.Usuario;
 import mx.ipn.escom.wad.tarea6.exception.NombreObjetosSession;
-import mx.ipn.escom.wad.tarea6.util.FieldErrors;
-import mx.ipn.escom.wad.tarea6.util.Message;
-import mx.ipn.escom.wad.tarea6.util.Message.MessageType;
-import mx.ipn.escom.wad.tarea6.util.PropertyAccess;
 
 /**
  * Servlet implementation class ContactoCtrl
@@ -73,6 +61,7 @@ public class ContactoCtrl extends HttpServlet {
 			response.sendRedirect("LoginCtrl");
 
 		this.usuario = usuarioBs.buscarByUserName(username.toString());
+		request.setAttribute("usuario", this.usuario);
 		this.persona = usuario.getPersona();
 
 		List<Contacto> contactos = this.persona.getContacto();
