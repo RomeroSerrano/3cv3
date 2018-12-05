@@ -45,13 +45,21 @@
     <servlet-name>RegistroCtrl</servlet-name>
     <url-pattern>RegistroCtrl</url-pattern>
   </servlet-mapping>
-	<servlet>
-    	<servlet-name>ContactoCtrl</servlet-name>
-    	<servlet-class>mx.ipn.escom.wad.tarea6.controller.ContactoCtrl</servlet-class>
+  <servlet>
+    <servlet-name>ContactoCtrl</servlet-name>
+    <servlet-class>mx.ipn.escom.wad.tarea6.controller.ContactoCtrl</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>ContactoCtrl</servlet-name>
     <url-pattern>ContactoCtrl</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>RegistroContactoCtrl</servlet-name>
+    <servlet-class>mx.ipn.escom.wad.tarea6.controller.RegistroContactoCtrl</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>RegistroContactoCtrl</servlet-name>
+    <url-pattern>RegistroContactoCtrl</url-pattern>
   </servlet-mapping>
   <welcome-file-list>
     <welcome-file>/login/index.jsp</welcome-file>
