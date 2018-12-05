@@ -3,6 +3,7 @@ package mx.ipn.escom.wad.tarea6.controller;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -65,7 +66,6 @@ public class RegistroContactoCtrl extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
-		System.out.println(session.getAttribute(NombreObjetosSession.USER));
 		Object username = session.getAttribute(NombreObjetosSession.USER);
 		if(username == null)
 			response.sendRedirect("LoginCtrl");
@@ -73,11 +73,7 @@ public class RegistroContactoCtrl extends HttpServlet {
 		this.usuario = usuarioBs.buscarByUserName(username.toString());
 		this.persona = usuario.getPersona();
 
-		List<Contacto> contactos = this.persona.getContacto();
-		request.setAttribute("contactos", contactos);
-
-		RequestDispatcher rd = request.getRequestDispatcher("contacto/registro-contacto.jsp");
-		rd.forward(request, response);
+		response.sendRedirect("contacto/registro-contacto.jsp");
 	}
 
 	@Override
@@ -94,17 +90,13 @@ public class RegistroContactoCtrl extends HttpServlet {
 		FieldErrors fieldErrors = new FieldErrors();
 
 		Persona persona  = obtenerPersona(fieldErrors, request);
-		PersonaContacto personaContacto = obtenerPersonaContacto(fieldErrors, request);
 		System.out.println("CONTACTO CTRL " + persona.getCurp());
 
 		if (!fieldErrors.hasErrors()) {	
 			personaBs.guardar(persona);
 
-			personaContacto.setIdPersona(persona.getId());
-
-			PersonaContactoId personaContactoId = new PersonaContactoId(persona.getId(), personaContacto.getIdTipoContacto());
-			personaContacto.setPersonaContactoId(personaContactoId);
-			personaContactoBs.guardar(personaContacto);
+			List<PersonaContacto> personaContactos = obtenerPersonaContactos(fieldErrors, request, persona);
+			persona.setContactos(personaContactos);
 
 			ContactoId contactoId = new ContactoId(this.persona.getId(), persona.getId());
 			Contacto contacto = new Contacto();
@@ -116,15 +108,14 @@ public class RegistroContactoCtrl extends HttpServlet {
 			session.setAttribute(NombreObjetosSession.GLOBAL_MESSAGE, message);
 			// response.sendRedirect(request.getContextPath() + "/ContactoCtrl");
 		} else {
-			RequestDispatcher rd = request.getRequestDispatcher("registro/registro-contacto.jsp");
+			RequestDispatcher rd = request.getRequestDispatcher("contacto/registro-contacto.jsp");
 			request.setAttribute("fieldErrors", fieldErrors);
 			rd.forward(request, response);
 		}
 
 
 
-		RequestDispatcher rd = request.getRequestDispatcher("contacto/contacto.jsp");
-		rd.forward(request, response);
+		response.sendRedirect("ContactoCtrl");
 	}
 
 	private Persona obtenerPersona(FieldErrors fieldErrors, HttpServletRequest request) {
@@ -156,21 +147,30 @@ public class RegistroContactoCtrl extends HttpServlet {
 		return persona;
 	}
 
-	private PersonaContacto obtenerPersonaContacto(FieldErrors fieldErrors, HttpServletRequest request) {
-		PersonaContacto personaContacto = new PersonaContacto();
-
+	private List<PersonaContacto> obtenerPersonaContactos(FieldErrors fieldErrors, HttpServletRequest request, Persona persona) {
+		List<PersonaContacto> personaContactos = new ArrayList<>();
 		try {
-			String contacto = request.getParameter("contacto.contacto");
-			Integer tipoContacto = Integer.parseInt(request.getParameter("contacto.tipoContacto"));
+			String[] contactoValues = request.getParameterValues("contacto.contacto");
+			String[] tipoContactoValues = request.getParameterValues("contacto.tipoContacto");
 			
-			personaContacto.setContacto(contacto);
-			personaContacto.setIdTipoContacto(tipoContacto);
+			for (int i = 0; i < contactoValues.length; i++) {
+				PersonaContacto personaContacto = new PersonaContacto();
+				personaContacto.setContacto(contactoValues[i]);
+				personaContacto.setIdTipoContacto(Integer.parseInt(tipoContactoValues[i]));
+
+				personaContacto.setIdPersona(persona.getId());
+
+				PersonaContactoId personaContactoId = new PersonaContactoId(persona.getId(), personaContacto.getIdTipoContacto());
+				personaContacto.setPersonaContactoId(personaContactoId);
+				personaContactoBs.guardar(personaContacto);
+				personaContactos.add(personaContacto);
+			}
 		}
 		catch(Exception e) {
 			
 		}
 
-		return personaContacto;
+		return personaContactos;
 	}
 
 }
