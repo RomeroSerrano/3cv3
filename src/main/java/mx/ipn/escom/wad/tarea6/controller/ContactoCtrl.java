@@ -19,9 +19,12 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 
+import mx.ipn.escom.wad.tarea6.bs.ContactoBs;
 import mx.ipn.escom.wad.tarea6.bs.PersonaBs;
 import mx.ipn.escom.wad.tarea6.bs.PersonaContactoBs;
 import mx.ipn.escom.wad.tarea6.bs.UsuarioBs;
+import mx.ipn.escom.wad.tarea6.entidad.Contacto;
+import mx.ipn.escom.wad.tarea6.entidad.ContactoId;
 import mx.ipn.escom.wad.tarea6.entidad.Persona;
 import mx.ipn.escom.wad.tarea6.entidad.PersonaContacto;
 import mx.ipn.escom.wad.tarea6.entidad.PersonaContactoId;
@@ -48,6 +51,8 @@ public class ContactoCtrl extends HttpServlet {
 	private PersonaContactoBs personaContactoBs;
     @Autowired
 	private UsuarioBs usuarioBs;
+	@Autowired
+	private ContactoBs contactoBs;
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -68,9 +73,10 @@ public class ContactoCtrl extends HttpServlet {
 
 		this.usuario = usuarioBs.buscarByUserName(username.toString());
 		this.persona = usuario.getPersona();
-		System.out.println("CONTACTOSS " + this.persona.getContactos());
-		for (PersonaContacto personaContacto : this.persona.getContactos()) {
-			System.out.println(personaContacto.getPersona());
+
+		List<Contacto> contactos = this.persona.getContacto();
+		for (Contacto contacto : contactos) {
+			request.setAttribute("contacto", contacto.getPersonaContacto());
 		}
 
 		RequestDispatcher rd = request.getRequestDispatcher("contacto/contacto.jsp");
@@ -99,9 +105,14 @@ public class ContactoCtrl extends HttpServlet {
 
 			personaContacto.setIdPersona(persona.getId());
 
-			PersonaContactoId personaContactoId = new PersonaContactoId(this.persona.getId(), personaContacto.getIdTipoContacto());
+			PersonaContactoId personaContactoId = new PersonaContactoId(persona.getId(), personaContacto.getIdTipoContacto());
 			personaContacto.setPersonaContactoId(personaContactoId);
 			personaContactoBs.guardar(personaContacto);
+
+			ContactoId contactoId = new ContactoId(this.persona.getId(), persona.getId());
+			Contacto contacto = new Contacto();
+			contacto.setIdContacto(contactoId);
+			contactoBs.guardar(contacto);
 
 			HttpSession session = request.getSession();
 			Message message = new Message(MessageType.MESSAGE_SUCCESS, PropertyAccess.getProperty("MSG4"));

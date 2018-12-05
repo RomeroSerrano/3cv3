@@ -14,7 +14,16 @@ public class ContactoId implements Serializable {
 	@Column(name = "id_persona", nullable = false)
 	private Integer idPersona;
 	@Column(name = "id_contacto", nullable = false)
-	private Integer idContacto;
+    private Integer idContacto;
+
+    public ContactoId() {
+        
+    }
+    
+    public ContactoId(Integer idPersona, Integer idContacto) {
+        this.idPersona = idPersona;
+        this.idContacto = idContacto;
+    }
 
 	public Integer getIdPersona() {
 		return idPersona;

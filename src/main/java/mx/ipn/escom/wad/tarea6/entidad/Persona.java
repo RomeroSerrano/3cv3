@@ -123,4 +123,8 @@ public class Persona implements Modelo{
 	public void setId(Integer id) {
 		this.id = id;
 	}
+
+	public List<Contacto> getContacto() {
+		return this.contacto;
+	}
 }
