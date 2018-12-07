@@ -46,10 +46,11 @@ public class LoginFilter implements Filter {
 		HttpSession session = req.getSession(false);
 		boolean loggedin = session != null && session.getAttribute(NombreObjetosSession.USER) != null;
 		// pass the request along the filter chain
-		if(loggedin) {
-			chain.doFilter(request, response);
-		} else {
-			resp.sendRedirect("/3cv3/");			
+		chain.doFilter(request, response);
+		
+		if(!loggedin) {
+			resp.sendRedirect("/3cv3/");
+			
 		}
 	}
 
