@@ -147,9 +147,24 @@ public class RegistroCtrl extends HttpServlet {
 			String login = request.getParameter("persona.login");
 			String password = request.getParameter("persona.password");
 			String passwordConfirm = request.getParameter("persona.passwordConfirm");
+			if(login != null && !login.equals(""))
+			{
+				usuario.setLogin(login);
+			} else {
+				fieldErrors.add("persona.login", PropertyAccess.getProperty("MSG2"));
+			}
 
-			usuario.setLogin(login);
-			usuario.setPassword(password);
+			if(password != null && !password.equals(""))
+			{
+				
+				if(!password.equals(passwordConfirm)) {
+					fieldErrors.add("persona.password", PropertyAccess.getProperty("UNEQUALPASSWORD"));
+				} else {
+					usuario.setPassword(password);
+				}
+			} else {
+				fieldErrors.add("persona.password", PropertyAccess.getProperty("MSG2"));
+			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

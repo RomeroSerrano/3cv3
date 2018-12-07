@@ -23,6 +23,7 @@ import mx.ipn.escom.wad.tarea6.entidad.Contacto;
 import mx.ipn.escom.wad.tarea6.entidad.Persona;
 import mx.ipn.escom.wad.tarea6.entidad.Usuario;
 import mx.ipn.escom.wad.tarea6.exception.NombreObjetosSession;
+import mx.ipn.escom.wad.tarea6.util.Message;
 
 /**
  * Servlet implementation class ContactoCtrl
@@ -55,7 +56,10 @@ public class ContactoCtrl extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
-		System.out.println(session.getAttribute(NombreObjetosSession.USER));
+		Message mensaje = (Message) session.getAttribute(NombreObjetosSession.GLOBAL_MESSAGE);
+		session.removeAttribute(NombreObjetosSession.GLOBAL_MESSAGE);
+		request.setAttribute(NombreObjetosSession.GLOBAL_MESSAGE, mensaje);
+		System.out.println("MENSAJEEEEE " +mensaje);
 		Object username = session.getAttribute(NombreObjetosSession.USER);
 		if(username == null)
 			response.sendRedirect("LoginCtrl");

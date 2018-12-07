@@ -91,7 +91,7 @@ public class RegistroContactoCtrl extends HttpServlet {
 
 		Persona persona  = obtenerPersona(fieldErrors, request);
 		List<PersonaContacto> personaContactos = obtenerPersonaContactos(fieldErrors, request);
-		System.out.println("CONTACTO CTRL " + persona.getCurp());
+		List<PersonaContacto> contactos = new ArrayList<>();
 
 		if (!fieldErrors.hasErrors()) {	
 			personaBs.guardar(persona);
@@ -101,9 +101,9 @@ public class RegistroContactoCtrl extends HttpServlet {
 				PersonaContactoId personaContactoId = new PersonaContactoId(persona.getId(), personaContacto.getIdTipoContacto());
 				personaContacto.setPersonaContactoId(personaContactoId);
 				personaContactoBs.guardar(personaContacto);
-				personaContactos.add(personaContacto);
+				contactos.add(personaContacto);
 			}
-			persona.setContactos(personaContactos);
+			persona.setContactos(contactos);
 
 			ContactoId contactoId = new ContactoId(this.persona.getId(), persona.getId());
 			Contacto contacto = new Contacto();
@@ -185,12 +185,12 @@ public class RegistroContactoCtrl extends HttpServlet {
 					fieldErrors.add("contacto.contacto", PropertyAccess.getProperty("MSG2"));
 				}
 				personaContacto.setIdTipoContacto(Integer.parseInt(tipoContactoValues[i]));
+				personaContactos.add(personaContacto);
 			}
 		}
 		catch(Exception e) {
 			
 		}
-
 		return personaContactos;
 	}
 

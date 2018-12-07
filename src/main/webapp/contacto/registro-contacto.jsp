@@ -112,11 +112,11 @@
 						<div><wad:property property="registrarContacto.tipoContacto"></wad:property></div>
 						<div>
 							<select name="contacto.tipoContacto" id="">
-								<option value="1">Telefono</option>
-								<option value="2">Correo</option>
-								<option value="3">Movil</option>
-								<option value="4">Facebook</option>
-								<option value="5">Twitter</option>
+								<option value="1"><wad:property property="registrarContacto.telefono"></wad:property></option>
+								<option value="2"><wad:property property="registrarContacto.correo"></wad:property></option>
+								<option value="3"><wad:property property="registrarContacto.movil"></wad:property></option>
+								<option value="4"><wad:property property="registrarContacto.facebook"></wad:property></option>
+								<option value="5"><wad:property property="registrarContacto.twitter"></wad:property></option>
 							</select>
 							<ul>
 								<c:if test="${fieldErrors ne null}">
@@ -131,20 +131,13 @@
 					<hr />
 				</div>
 				<div class="form-group">
-					<button type="button" class="btn btn-link" id="agregar-info-contacto">+ Agregar informacion de contacto</button>
+					<button type="button" class="btn btn-link" id="agregar-info-contacto"><wad:property property="registrarContacto.agregarContacto"></wad:property></button>
 				</div>
 				<div class="form-group">
-					<button type="submit" class="btn btn-primary">Guardar</button>
+					<button type="submit" class="btn btn-primary"><wad:property property="GUARDAR"></wad:property></button>
 				</div>
 			</form>
 		</div>
-	</div>
-	<div class="row">
-			<div class="col-md-4">
-				<div class="form-group">
-					<span>Contactos</span>
-				</div>
-			</div>
 	</div>
 	<script src="${pageContext.request.contextPath}/resources/js/info_contacto.js"><!----></script>
 </body>

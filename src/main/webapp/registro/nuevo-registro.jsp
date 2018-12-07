@@ -31,7 +31,7 @@
 						<c:forEach
 							items="${fn:getErrors(fieldErrors,'persona.primerApellido')}"
 							var="error">
-							<li><c:out value="${error}" /></li>
+							<li class="text-danger"><c:out value="${error}" /></li>
 						</c:forEach>
 					</c:if>
 				</ul>
@@ -46,7 +46,7 @@
 						<c:forEach
 							items="${fn:getErrors(fieldErrors,'persona.segundoApellido')}"
 							var="error">
-							<li><c:out value="${error}" /></li>
+							<li class="text-danger"><c:out value="${error}" /></li>
 						</c:forEach>
 					</c:if>
 				</ul>
@@ -60,7 +60,7 @@
 					<c:if test="${fieldErrors ne null}">
 						<c:forEach items="${fn:getErrors(fieldErrors,'persona.curp')}"
 							var="error">
-							<li><c:out value="${error}" /></li>
+							<li class="text-danger"><c:out value="${error}" /></li>
 						</c:forEach>
 					</c:if>
 				</ul>
@@ -75,7 +75,7 @@
 						<c:forEach
 							items="${fn:getErrors(fieldErrors,'persona.nacimiento')}"
 							var="error">
-							<li><c:out value="${error}" /></li>
+							<li class="text-danger"><c:out value="${error}" /></li>
 						</c:forEach>
 					</c:if>
 				</ul>
@@ -89,7 +89,7 @@
 					<c:if test="${fieldErrors ne null}">
 						<c:forEach items="${fn:getErrors(fieldErrors,'persona.login')}"
 							var="error">
-							<li><c:out value="${error}" /></li>
+							<li class="text-danger"><c:out value="${error}" /></li>
 						</c:forEach>
 					</c:if>
 				</ul>
@@ -103,7 +103,7 @@
 					<c:if test="${fieldErrors ne null}">
 						<c:forEach items="${fn:getErrors(fieldErrors,'persona.password')}"
 							var="error">
-							<li><c:out value="${error}" /></li>
+							<li class="text-danger"><c:out value="${error}" /></li>
 						</c:forEach>
 					</c:if>
 				</ul>
@@ -118,7 +118,7 @@
 						<c:forEach
 							items="${fn:getErrors(fieldErrors,'persona.passwordConfirm')}"
 							var="error">
-							<li><c:out value="${error}" /></li>
+							<li class="text-danger"><c:out value="${error}" /></li>
 						</c:forEach>
 					</c:if>
 				</ul>

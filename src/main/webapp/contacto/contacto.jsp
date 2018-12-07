@@ -12,8 +12,28 @@
 <head>
 </head>
 <body>
-    <c:set var="usuario" value="${usuario}" />
-	<h1>Bienvenido</h1>
+	<c:set var="usuario" value="${usuario}" />
+	<c:set var="message" value="${requestScope['global-message']}" />
+	<c:choose>
+		<c:when test="${message.type eq 'MESSAGE_ALERT'}">
+			<c:set var="messageClass" value="alert alert-primary" />
+		</c:when>
+		<c:when test="${message.type eq 'MESSAGE_SUCCESS'}">
+			<c:set var="messageClass" value="alert alert-success" />
+		</c:when>
+		<c:when test="${message.type eq 'MESSAGE_DANGER'}">
+			<c:set var="messageClass" value="alert alert-danger" />
+		</c:when>
+		<c:when test="${message.type eq 'MESSAGE_WARNING'}">
+			<c:set var="messageClass" value="alert alert-warning" />
+		</c:when>
+	</c:choose>
+	<c:if test="${message ne null}">
+		<div class="${messageClass}" role="alert">
+			<c:out value="${message.text}" />
+		</div>
+	</c:if>
+	<h1><wad:property property="BIENVENIDO"></wad:property></h1>
 	<h3><c:out value="${usuario}"/></h3>
 	<div class="row">
 		<div class="col-md-12">
@@ -25,11 +45,12 @@
 			<div class="table-responsive">
 				<table class="table">
 					<thead>
-						<th>Nombre</th>
-						<th>Primero apellido</th>
-						<th>Segundo apellido</th>
-						<th>CURP</th>
-						<th>Contactos</th>
+						<th><wad:property property="registrarPersona.nombre"></wad:property></th>
+						<th><wad:property property="registrarPersona.primerApellido"></wad:property></th>
+						<th><wad:property property="registrarPersona.segundoApellido"></wad:property></th>
+						<th><wad:property property="registrarPersona.curp"></wad:property></th>
+						<th><wad:property property="registrarPersona.nacimiento"></wad:property></th>
+						<th><wad:property property="registrarPersona.contactos"></wad:property></th>
 					</thead>
 					<tbody>
 						<c:forEach var="contacto" items="${contactos}">
