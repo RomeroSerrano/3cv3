@@ -64,4 +64,13 @@
 			<name>property</name>
 		</attribute>
 	</tag>
+	<tag>
+		<name>formatDate</name>
+		<tag-class>mx.ipn.escom.wad.tag.FormatDateTag</tag-class>
+		<body-content>empty</body-content>
+		<attribute>
+			<name>date</name>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+	</tag>
 </taglib>
