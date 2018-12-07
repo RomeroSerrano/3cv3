@@ -13,12 +13,12 @@
 <head></head>
 <body>
     <c:set var="usuario" value="${sessionScope.authenticated_user}" />
-	<h1>Bienvenido</h1>
+	<h1><wad:property property="BIENVENIDO"></wad:property></h1>
 	<div class="row">
 		<div class="col-md-4">
 			<form action="${pageContext.request.contextPath}/RegistroContactoCtrl" method="post">
 				<div>
-					<div>Nombre</div>
+					<div><wad:property property="registrarPersona.nombre"></wad:property></div>
 					<div>
 						<input type="text" name="persona.nombre" />
 						<ul>
@@ -33,7 +33,7 @@
 					</div>
 				</div>
 				<div>
-					<div>Primer Apellido</div>
+					<div><wad:property property="registrarPersona.primerApellido"></wad:property></div>
 					<div>
 						<input type="text" name="persona.primerApellido" />
 						<ul>
@@ -48,7 +48,7 @@
 					</div>
 				</div>
 				<div>
-					<div>Segundo Apellido</div>
+					<div><wad:property property="registrarPersona.segundoApellido"></wad:property></div>
 					<div>
 						<input type="text" name="persona.segundoApellido" />
 						<ul>
@@ -63,7 +63,7 @@
 					</div>
 				</div>
 				<div>
-					<div>CURP</div>
+					<div><wad:property property="registrarPersona.curp"></wad:property></div>
 					<div>
 						<input type="text" name="persona.curp" />
 						<ul>
@@ -77,7 +77,7 @@
 					</div>
 				</div>
 				<div>
-					<div>Fecha Nacimiento</div>
+					<div><wad:property property="registrarPersona.nacimiento"></wad:property></div>
 					<div>
 						<input type="text" name="persona.nacimiento" />
 						<ul>
@@ -92,10 +92,10 @@
 					</div>
 					<hr />
 				</div>
-				<h5>Informacion contacto</h5>
+				<h5><wad:property property="registrarContacto.titulo"></wad:property></h5>
 				<div id="info-contacto">
 					<div>
-						<div>Contacto</div>
+						<div><wad:property property="registrarContacto.contacto"></wad:property></div>
 						<div>
 							<input type="text" name="contacto.contacto" />
 							<ul>
@@ -109,7 +109,7 @@
 						</div>
 					</div>
 					<div>
-						<div>Tipo de contacto</div>
+						<div><wad:property property="registrarContacto.tipoContacto"></wad:property></div>
 						<div>
 							<select name="contacto.tipoContacto" id="">
 								<option value="1">Telefono</option>

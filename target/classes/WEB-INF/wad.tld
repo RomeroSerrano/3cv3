@@ -56,4 +56,12 @@
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 	</tag>
+	<tag>
+		<name>property</name>
+		<tag-class>mx.ipn.escom.wad.tag.PropertyTag</tag-class>
+		<body-content>empty</body-content>
+		<attribute>
+			<name>property</name>
+		</attribute>
+	</tag>
 </taglib>
