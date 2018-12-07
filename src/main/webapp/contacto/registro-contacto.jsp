@@ -17,10 +17,20 @@
 	<div class="row">
 		<div class="col-md-4">
 			<form action="${pageContext.request.contextPath}/RegistroContactoCtrl" method="post">
-				<div class="form-group">
-					<label>Nombre</label>
-					<wad:input name="persona.nombre" id="txNombre" cssClass="form-control"
-						errorClass="input-error" showErrors="true" />
+				<div>
+					<div>Nombre</div>
+					<div>
+						<input type="text" name="persona.nombre" />
+						<ul>
+							<c:if test="${fieldErrors ne null}">
+								<c:forEach
+									items="${fn:getErrors(fieldErrors,'persona.nombre')}"
+									var="error">
+									<li class="text-danger"><c:out value="${error}" /></li>
+								</c:forEach>
+							</c:if>
+						</ul>
+					</div>
 				</div>
 				<div>
 					<div>Primer Apellido</div>
@@ -31,7 +41,7 @@
 								<c:forEach
 									items="${fn:getErrors(fieldErrors,'persona.primerApellido')}"
 									var="error">
-									<li><c:out value="${error}" /></li>
+									<li class="text-danger"><c:out value="${error}" /></li>
 								</c:forEach>
 							</c:if>
 						</ul>
@@ -46,7 +56,7 @@
 								<c:forEach
 									items="${fn:getErrors(fieldErrors,'persona.segundoApellido')}"
 									var="error">
-									<li><c:out value="${error}" /></li>
+									<li class="text-danger"><c:out value="${error}" /></li>
 								</c:forEach>
 							</c:if>
 						</ul>
@@ -60,7 +70,7 @@
 							<c:if test="${fieldErrors ne null}">
 								<c:forEach items="${fn:getErrors(fieldErrors,'persona.curp')}"
 									var="error">
-									<li><c:out value="${error}" /></li>
+									<li class="text-danger"><c:out value="${error}" /></li>
 								</c:forEach>
 							</c:if>
 						</ul>
@@ -75,7 +85,7 @@
 								<c:forEach
 									items="${fn:getErrors(fieldErrors,'persona.nacimiento')}"
 									var="error">
-									<li><c:out value="${error}" /></li>
+									<li class="text-danger"><c:out value="${error}" /></li>
 								</c:forEach>
 							</c:if>
 						</ul>
@@ -92,7 +102,7 @@
 								<c:if test="${fieldErrors ne null}">
 									<c:forEach items="${fn:getErrors(fieldErrors,'contacto.contacto')}"
 										var="error">
-										<li><c:out value="${error}" /></li>
+										<li class="text-danger"><c:out value="${error}" /></li>
 									</c:forEach>
 								</c:if>
 							</ul>
@@ -112,7 +122,7 @@
 								<c:if test="${fieldErrors ne null}">
 									<c:forEach items="${fn:getErrors(fieldErrors,'contacto.tipoContacto')}"
 										var="error">
-										<li><c:out value="${error}" /></li>
+										<li class="text-danger"><c:out value="${error}" /></li>
 									</c:forEach>
 								</c:if>
 							</ul>
@@ -120,8 +130,8 @@
 					</div>
 					<hr />
 				</div>
-				<div>
-					<button type="button" id="agregar-info-contacto">Agregar informacion de contacto</button>
+				<div class="form-group">
+					<button type="button" class="btn btn-link" id="agregar-info-contacto">+ Agregar informacion de contacto</button>
 				</div>
 				<div class="form-group">
 					<button type="submit" class="btn btn-primary">Guardar</button>

@@ -121,12 +121,18 @@ public class RegistroCtrl extends HttpServlet {
 			} else {
 				fieldErrors.add("persona.curp", PropertyAccess.getProperty("MSG2"));
 			}
-			
-			SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-			Date fecha;
-			fecha = format.parse(nacimiento);
-			persona.setNacimiento(fecha);
+			if(nacimiento != null && !nacimiento.equals(""))
+			{
+				SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+				Date fecha;
+				fecha = format.parse(nacimiento);
+				persona.setNacimiento(fecha);
+			} else {
+				fieldErrors.add("persona.nacimiento", PropertyAccess.getProperty("MSG2"));
+				fieldErrors.add("persona.nacimiento", PropertyAccess.getProperty("PARSEDATEERROR"));
+			}
 		} catch (ParseException e) {
+			fieldErrors.add("persona.nacimiento", PropertyAccess.getProperty("PARSEDATEERROR"));
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

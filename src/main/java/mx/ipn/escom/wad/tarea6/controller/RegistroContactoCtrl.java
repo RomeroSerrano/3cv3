@@ -90,12 +90,19 @@ public class RegistroContactoCtrl extends HttpServlet {
 		FieldErrors fieldErrors = new FieldErrors();
 
 		Persona persona  = obtenerPersona(fieldErrors, request);
+		List<PersonaContacto> personaContactos = obtenerPersonaContactos(fieldErrors, request);
 		System.out.println("CONTACTO CTRL " + persona.getCurp());
 
 		if (!fieldErrors.hasErrors()) {	
 			personaBs.guardar(persona);
+			for (PersonaContacto personaContacto : personaContactos) {
+				personaContacto.setIdPersona(persona.getId());
 
-			List<PersonaContacto> personaContactos = obtenerPersonaContactos(fieldErrors, request, persona);
+				PersonaContactoId personaContactoId = new PersonaContactoId(persona.getId(), personaContacto.getIdTipoContacto());
+				personaContacto.setPersonaContactoId(personaContactoId);
+				personaContactoBs.guardar(personaContacto);
+				personaContactos.add(personaContacto);
+			}
 			persona.setContactos(personaContactos);
 
 			ContactoId contactoId = new ContactoId(this.persona.getId(), persona.getId());
@@ -145,18 +152,25 @@ public class RegistroContactoCtrl extends HttpServlet {
 			} else {
 				fieldErrors.add("persona.curp", PropertyAccess.getProperty("MSG2"));
 			}
-			SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-			Date fecha;
-			fecha = format.parse(nacimiento);
-			persona.setNacimiento(fecha);
+			if(nacimiento != null && !nacimiento.equals(""))
+			{
+				SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+				Date fecha;
+				fecha = format.parse(nacimiento);
+				persona.setNacimiento(fecha);
+			} else {
+				fieldErrors.add("persona.nacimiento", PropertyAccess.getProperty("MSG2"));
+				fieldErrors.add("persona.nacimiento", PropertyAccess.getProperty("PARSEDATEERROR"));
+			}
 		} catch (ParseException e) {
+			fieldErrors.add("persona.nacimiento", PropertyAccess.getProperty("PARSEDATEERROR"));
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return persona;
 	}
 
-	private List<PersonaContacto> obtenerPersonaContactos(FieldErrors fieldErrors, HttpServletRequest request, Persona persona) {
+	private List<PersonaContacto> obtenerPersonaContactos(FieldErrors fieldErrors, HttpServletRequest request) {
 		List<PersonaContacto> personaContactos = new ArrayList<>();
 		try {
 			String[] contactoValues = request.getParameterValues("contacto.contacto");
@@ -164,15 +178,13 @@ public class RegistroContactoCtrl extends HttpServlet {
 			
 			for (int i = 0; i < contactoValues.length; i++) {
 				PersonaContacto personaContacto = new PersonaContacto();
-				personaContacto.setContacto(contactoValues[i]);
+				if(contactoValues[i] != null && !contactoValues[i].equals(""))
+				{
+					personaContacto.setContacto(contactoValues[i]);
+				} else {
+					fieldErrors.add("contacto.contacto", PropertyAccess.getProperty("MSG2"));
+				}
 				personaContacto.setIdTipoContacto(Integer.parseInt(tipoContactoValues[i]));
-
-				personaContacto.setIdPersona(persona.getId());
-
-				PersonaContactoId personaContactoId = new PersonaContactoId(persona.getId(), personaContacto.getIdTipoContacto());
-				personaContacto.setPersonaContactoId(personaContactoId);
-				personaContactoBs.guardar(personaContacto);
-				personaContactos.add(personaContacto);
 			}
 		}
 		catch(Exception e) {
