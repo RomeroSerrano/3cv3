@@ -101,13 +101,27 @@ public class RegistroCtrl extends HttpServlet {
 			if (nombre != null && !nombre.equals("")) {
 				persona.setNombre(nombre);
 			} else {
-				fieldErrors.add("persona.nombre", PropertyAccess.getProperty("MSG1"));
 				fieldErrors.add("persona.nombre", PropertyAccess.getProperty("MSG2"));
-				fieldErrors.add("persona.nombre", PropertyAccess.getProperty("MSG3"));
 			}
-			persona.setPrimerApellido(primerApellido);
-			persona.setSegundoApellido(segundoApellido);
-			persona.setCurp(curp);
+			if(primerApellido != null && !primerApellido.equals(""))
+			{
+				persona.setPrimerApellido(primerApellido);
+			} else {
+				fieldErrors.add("persona.primerApellido", PropertyAccess.getProperty("MSG2"));
+			}
+			if(segundoApellido != null && !segundoApellido.equals(""))
+			{
+				persona.setSegundoApellido(segundoApellido);
+			} else {
+				fieldErrors.add("persona.segundoApellido", PropertyAccess.getProperty("MSG2"));
+			}
+			if(curp != null && !curp.equals(""))
+			{
+				persona.setCurp(curp);
+			} else {
+				fieldErrors.add("persona.curp", PropertyAccess.getProperty("MSG2"));
+			}
+			
 			SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
 			Date fecha;
 			fecha = format.parse(nacimiento);

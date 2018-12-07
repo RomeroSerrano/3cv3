@@ -38,6 +38,7 @@
 								<td><c:out value="${contacto.personaContacto.primerApellido}"></c:out></td>
 								<td><c:out value="${contacto.personaContacto.segundoApellido}"></c:out></td>
 								<td><c:out value="${contacto.personaContacto.curp}"></c:out></td>
+								<td><c:out value="${contacto.personaContacto.nacimiento}"></c:out></td>
 								<td>
 									<ul>
 										<c:forEach var="pContacto" items="${contacto.personaContacto.contactos}">
